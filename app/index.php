@@ -3,11 +3,10 @@
 require 'vendor/autoload.php';
 
 use App\Router;
-use App\Controllers\{User, Auth};
+use App\Controllers\{User};
 
 $controllers = [
     User::class,
-    Auth::class,
 ];
 
 $router = new Router();

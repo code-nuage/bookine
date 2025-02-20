@@ -5,14 +5,14 @@ namespace App\Models;
 use \PDO;
 use stdClass;
 
-class UserModel extends SqlConnect {
-    private $table = "users";
+class LoanModel extends SqlConnect {
+    private $table = "loans";
     public $authorized_fields_to_update = ["firstname", "lastname"];
 
     public function create(array $data) {
         $query = "
-        INSERT INTO $this->table (username, firstname, lastname, role, password)
-        VALUES (:username, :firstname, :lastname, :role, :password)
+        INSERT INTO $this->table (user_id, book_id, loaned_at, return_at)
+        VALUES (:user_id, :book_id, :loaned_at, :return_at)
       ";
 
         $req = $this->db->prepare($query);
@@ -26,7 +26,7 @@ class UserModel extends SqlConnect {
     }
 
     public function get(int $id) {
-        $req = $this->db->prepare("SELECT * FROM users WHERE id = :id");
+        $req = $this->db->prepare("SELECT * FROM $this->table WHERE id = :id");
         $req->execute(["id" => $id]);
 
         return $req->rowCount() > 0

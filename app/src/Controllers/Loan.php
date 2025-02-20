@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\Controller;
-use App\Models\UserModel;
+use App\Models\LoanModel;
 use App\Utils\Route;
 use App\Utils\HttpException;
 
@@ -32,6 +32,14 @@ class User extends Controller {
     #[Route("GET", "/users/:id")]
     public function getUserById() {
         return $this->user->get(intval($this->params["id"]));
+    }
+
+    #[Route("GET", "/users")]
+    public function getUsers() {
+        $limit = isset($this->params["limit"])
+            ? intval($this->params["limit"])
+            : null;
+        return $this->user->getAll($limit);
     }
 
     #[Route("PATCH", "/users/:id")]
