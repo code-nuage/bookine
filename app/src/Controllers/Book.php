@@ -3,46 +3,46 @@
 namespace App\Controllers;
 
 use App\Controllers\Controller;
-use App\Models\LoanModel;
+use App\Models\BookModel;
 use App\Utils\Route;
 use App\Utils\HttpException;
 
-class Loan extends Controller {
-    protected object $user;
+class Book extends Controller {
+    protected object $book;
 
     public function __construct($param) {
-        $this->user = new LoanModel();
+        $this->book = new BookModel();
 
         parent::__construct($param);
     }
 
-    #[Route("POST", "/loan")]
-    public function createLoan() {
-        $this->loan->create($this->body);
+    #[Route("POST", "/book")]
+    public function createBook() {
+        $this->book->create($this->body);
 
-        return $this->loan->getLast();
+        return $this->book->getLast();
     }
 
-    #[Route("DELETE", "/loan/:id")]
-    public function deleteLoanById() {
-        return $this->loan->delete(intval($this->params["id"]));
+    #[Route("DELETE", "/book/:id")]
+    public function deleteBookById() {
+        return $this->book->delete(intval($this->params["id"]));
     }
 
-    #[Route("GET", "/loan/:id")]
-    public function getLoanById() {
-        return $this->loan->get(intval($this->params["id"]));
+    #[Route("GET", "/book/:id")]
+    public function getBookById() {
+        return $this->book->get(intval($this->params["id"]));
     }
 
-    #[Route("GET", "/loans")]
-    public function getLoans() {
+    #[Route("GET", "/books")]
+    public function getBooks() {
         $limit = isset($this->params["limit"])
             ? intval($this->params["limit"])
             : null;
-        return $this->loan->getAll($limit);
+        return $this->book->getAll($limit);
     }
 
-    #[Route("PATCH", "/loan/:id")]
-    public function updateLoanById() {
+    #[Route("PATCH", "/book/:id")]
+    public function updateBookById() {
         try {
             $id = intval($this->params["id"]);
             $data = $this->body;
@@ -57,7 +57,7 @@ class Loan extends Controller {
 
             # Check for missing fields
             $missingFields = array_diff(
-                $this->loan->authorized_fields_to_update,
+                $this->book->authorized_fields_to_update,
                 array_keys($data)
             );
             if (!empty($missingFields)) {
@@ -67,9 +67,9 @@ class Loan extends Controller {
                 );
             }
 
-            $this->loan->update($data, intval($id));
+            $this->book->update($data, intval($id));
 
-            return $this->loan->get($id);
+            return $this->book->get($id);
         } catch (HttpException $e) {
             throw $e;
         }

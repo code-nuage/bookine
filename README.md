@@ -20,10 +20,11 @@ An exemple of each type is listed here :
 
 #### Users
 ##### Endpoints
-CREATE: /user
-READ: /user/:id
-UPDATE: /user/:id
-DELETE: /user/:id
+CREATE: /users
+READBYID: /users/:id
+READALL: /users
+UPDATE: /users/:id
+DELETE: /users/:id
 
 ##### Expected incoming data
 
@@ -50,3 +51,67 @@ DELETE: /user/:id
 } 
 ```
 
+#### Loans
+##### Endpoints
+CREATE: /loan
+READBYID: /loan/:id
+READALL: /loans
+UPDATE: /loan/:id
+DELETE: /loan/:id
+
+##### Expected incoming data
+
+```json
+{
+    "user_id": "(INT) user id",
+    "book_id": "(INT) book id",
+    "loaned_at": "(TIMESTAMP) time when the book has been loaned",
+    "return_at": "(TIMESTAMP) time when the book should be returned"
+}
+```
+
+##### Returned data
+```json
+{
+    "id": "(INTEGER) id",
+    "user_id": "(INT) user id",
+    "book_id": "(INT) book id",
+    "loaned_at": "(TIMESTAMP) time when the book has been loaned",
+    "return_at": "(TIMESTAMP) time when the book should be returned",
+    "returned_at": "(TIMESTAMP) time when the book has been returned (if it is)",
+    "created_at": "(TIMESTAMP) time where the loan was created"             
+} 
+```
+
+#### Books
+##### Endpoints
+CREATE: /book
+READBYID: /book/:id
+READALL: /books
+UPDATE: /book/:id
+DELETE: /book/:id
+
+##### Expected incoming data
+
+```json
+{
+    "isbn": "(INT) book unique identificator",
+    "title": "(STRING) title",
+    "author": "(STRING) author",
+    "published_at": "(DATE) date when the book was published",
+    "category": "(INT) category"
+}
+```
+
+##### Returned data
+```json
+{
+    "id": "(INTEGER) id",
+    "isbn": "(INT) book unique identificator",
+    "title": "(STRING) title",
+    "author": "(STRING) author",
+    "published_at": "(DATE) date when the book was published",
+    "category": "(INT) category",
+    "created_at": "(TIMESTAMP) time where the book was created"             
+} 
+```
